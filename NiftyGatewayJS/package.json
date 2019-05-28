@@ -1,0 +1,53 @@
+{
+  "name": "niftygateway",
+  "version": "1.0.13",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src --out-dir dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nifty-gateway/niftygatewayjs.git"
+  },
+  "dependencies": {
+    "web3-eth-abi": "^1.0.0-beta.50",
+    "web3-eth-contract": "^1.0.0-beta.46",
+    "web3-utils": "^1.0.0-beta.50"
+  },
+  "keywords": [
+    "marketplace",
+    "crypto",
+    "nifties",
+    "niftygateway",
+    "niftygatewayjs",
+    "nifty",
+    "digital_goods",
+    "digital",
+    "1",
+    "billion",
+    "people",
+    "collecting",
+    "nifties",
+    "collectibles",
+    "javascript",
+    "sdk",
+    "node",
+    "nft",
+    "non-fungible-tokens",
+    "ethereum",
+    "smart-contracts"
+  ],
+  "author": "Nifty Gateway Developers",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nifty-gateway/niftygatewayjs/issues"
+  },
+  "homepage": "https://github.com/nifty-gateway/niftygatewayjs#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4"
+  }
+}
