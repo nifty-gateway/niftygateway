@@ -31,3 +31,6 @@ nftg.getWalletAndEmailAddress().then(res => {
  });
  ```
 
+# Examples
+
+The 'niftygateway_examples' directory has implemetation of the functions from NiftyGatewayJS in React. 
