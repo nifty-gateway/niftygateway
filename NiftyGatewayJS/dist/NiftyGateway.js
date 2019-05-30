@@ -15,6 +15,22 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+function getCookie(cname) {
+  var name = cname + "=";
+  var ca = document.cookie.split(';');
+  for(var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+
 // export var niftyGatewayOrigin = "http://localhost:3001";
 // export var niftyGatewayRinkebyOrigin = 'http://localhost:3001';
 // export var niftyGatewayRinkebyOriginNew = 'http://localhost:3001/#/purchase/rinkeby.niftygateway.com'
@@ -148,7 +164,17 @@ function () {
         return "Valid object";
       }
     }
-  }]);
+  },{
+    key: "getWalletAddressFromStorage",
+    value: function getWalletAddressFromStorage() {
+      var res = getCookie('walletAddress');
+
+      return res;
+
+    }
+  },
+
+  ]);
 
   return NiftyGatewayJS;
 }();

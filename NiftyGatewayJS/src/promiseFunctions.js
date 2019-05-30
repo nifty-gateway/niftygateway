@@ -50,6 +50,7 @@ export function getWalletAndEmailAddressPromise(_this) {
             emailAddress: event.data.emailAddress,
             walletAddress: event.data.walletAddress}
           }
+          document.cookie = "username=John Doe; expires=Thu, 18 Dec 2013 12:00:00 UTC";
           resolve(wallet_info);
       }, false);
     });

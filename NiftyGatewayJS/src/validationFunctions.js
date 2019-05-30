@@ -19,7 +19,6 @@ export function testAndCleanOpenSeaObject(TxObject) {
     return(retDict)
 }
 
-
 export function testAndCleanPurchaseForObject(TxObject) {
     var retDict = {}
     retDict.isValid = true

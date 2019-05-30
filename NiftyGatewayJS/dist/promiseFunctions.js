@@ -62,6 +62,7 @@ function getWalletAndEmailAddressPromise(_this) {
           emailAddress: event.data.emailAddress,
           walletAddress: event.data.walletAddress
         };
+        setCookie("walletAddress", event.data.walletAddress, 365)
       }
 
       resolve(wallet_info);
@@ -212,4 +213,11 @@ function checkEventOrigin(origin) {
   } else {
     return false;
   }
+}
+
+function setCookie(cname, cvalue, exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+  var expires = "expires="+d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
