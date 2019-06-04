@@ -3,6 +3,7 @@ import './App.css';
 import '../../NiftyGatewayJS';
 
 import DemoPage from './DemoPage.js';
+import Sandbox from './Sandbox.js';
 
 import {
   Route,
@@ -18,6 +19,7 @@ function App() {
     <div>
       <Route exact path='/' component={DemoPage} />
       <Route path="/Demo" component={DemoPage} />
+      <Route path="/Sandbox" component={Sandbox} />
     </div>
     </HashRouter>
 

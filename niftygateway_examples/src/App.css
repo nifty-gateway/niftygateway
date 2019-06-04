@@ -31,3 +31,88 @@
     transform: rotate(360deg);
   }
 }
+
+.Body {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.BodyBold {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 700;
+}
+
+.BodyMedium {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 500;
+}
+
+.BodySemiBold {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 600;
+}
+
+.BodyLight {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 300;
+}
+
+.HoverButton:hover{
+  cursor: pointer;
+  opacity: .5;
+}
+
+.HoverUplift:hover{
+  cursor:pointer;
+  opacity: .7;
+  transform: translateY(-1px);
+  box-shadow: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
+}
+
+.BodyHover {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.BodyBoldHover {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 700;
+}
+
+.BodyMediumHover {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 500;
+}
+
+.BodySemiBoldHover {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 600;
+}
+
+.BodyLightHover {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 300;
+}
+
+.BodyHover:hover{
+  cursor: pointer;
+  opacity: .5;
+}
+
+.BodyBoldHover:hover{
+  cursor: pointer;
+  opacity: .5;
+}
+
+.BodyMediumHover:hover{
+  cursor: pointer;
+  opacity: .5;
+}
+
+.BodySemiBoldHover:hover{
+  cursor: pointer;
+  opacity: .5;
+}
+
+.BodyLightHover:hover {
+  cursor: pointer;
+  opacity:
+}

@@ -15,25 +15,49 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+// export var niftyGatewayOrigin = "http://localhost:3001";
+// export var niftyGatewayRinkebyOrigin = 'http://localhost:3001';
+// export var niftyGatewayRinkebyOriginNew = 'http://localhost:3001/#/purchase/rinkeby.niftygateway.com'
+function setCookie(cname, cvalue, exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+  var expires = "expires=" + d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
 function getCookie(cname) {
   var name = cname + "=";
   var ca = document.cookie.split(';');
-  for(var i = 0; i < ca.length; i++) {
+
+  for (var i = 0; i < ca.length; i++) {
     var c = ca[i];
+
     while (c.charAt(0) == ' ') {
       c = c.substring(1);
     }
+
     if (c.indexOf(name) == 0) {
       return c.substring(name.length, c.length);
     }
   }
+
   return "";
 }
 
+function checkCookie() {
+  var user = getCookie("username");
 
-// export var niftyGatewayOrigin = "http://localhost:3001";
-// export var niftyGatewayRinkebyOrigin = 'http://localhost:3001';
-// export var niftyGatewayRinkebyOriginNew = 'http://localhost:3001/#/purchase/rinkeby.niftygateway.com'
+  if (user != "") {
+    alert("Welcome again " + user);
+  } else {
+    user = prompt("Please enter your name:", "");
+
+    if (user != "" && user != null) {
+      setCookie("username", user, 365);
+    }
+  }
+}
+
 var NiftyGatewayJS =
 /*#__PURE__*/
 function () {
@@ -123,10 +147,10 @@ function () {
     }
   }, {
     key: "getWalletAndEmailAddress",
-    value: function getWalletAndEmailAddress() {
+    value: function getWalletAndEmailAddress(signInObject) {
       var _this = this;
 
-      var prom = (0, _promiseFunctions.getWalletAndEmailAddressPromise)(_this);
+      var prom = (0, _promiseFunctions.getWalletAndEmailAddressPromise)(_this, signInObject);
       return prom;
     }
   }, {
@@ -164,17 +188,19 @@ function () {
         return "Valid object";
       }
     }
-  },{
+  }, {
     key: "getWalletAddressFromStorage",
     value: function getWalletAddressFromStorage() {
-      var res = getCookie('walletAddress');
-
-      return res;
-
+      var walletAddress = getCookie('walletAddress');
+      return walletAddress;
     }
-  },
-
-  ]);
+  }, {
+    key: "clearWalletAddressFromStorage",
+    value: function clearWalletAddressFromStorage() {
+      var walletAddress = setCookie('walletAddress', "", 365);
+      return null;
+    }
+  }]);
 
   return NiftyGatewayJS;
 }();

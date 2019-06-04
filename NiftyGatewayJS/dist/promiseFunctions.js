@@ -24,7 +24,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 var abiCoder = new _web3EthAbi.AbiCoder();
 
-function getWalletAndEmailAddressPromise(_this) {
+function getWalletAndEmailAddressPromise(_this,signInObject) {
   // url to open
   var url = _config.niftyGatewayOrigin + '/#/loginwithniftygateway/';
 
@@ -39,9 +39,14 @@ function getWalletAndEmailAddressPromise(_this) {
   var counter = 0;
   var seconds_interval = 1500;
   var number_of_times = 30;
+  var signingMessage = signInObject!==undefined?signInObject.signingMessage:null;
+  var isRinkeby = signInObject!==undefined?signInObject.isRinkeby:null;
+
   var authInfo = {
     network: _this.network,
-    authKey: _this.auth_key
+    authKey: _this.auth_key,
+    signingMessage: signingMessage,
+    isRinkeby: isRinkeby,
   };
   window.messageConfirmed = false; //messaging is recursive
 
@@ -60,7 +65,8 @@ function getWalletAndEmailAddressPromise(_this) {
         var wallet_info = {
           didSucceed: event.data.didSucceed,
           emailAddress: event.data.emailAddress,
-          walletAddress: event.data.walletAddress
+          walletAddress: event.data.walletAddress,
+          signedMessage: event.data.signedMessage,
         };
         setCookie("walletAddress", event.data.walletAddress, 365)
       }
@@ -127,6 +133,8 @@ function createOpenSeaPromise(openSeaObject, _this) {
 
 
     var url = _config.niftyGatewayOrigin + '/#/purchase';
+
+    var url = 'http://localhost:3001/#/purchase'; //delete this
 
     if (_this.network == 'rinkeby') {
       url = 'https://rinkeby.niftygateway.com/#/purchase';

@@ -119,12 +119,11 @@ export class NiftyGatewayJS {
     return (this.network);
   }
 
-  getWalletAndEmailAddress() {
+  getWalletAndEmailAddress(signInObject) {
     var _this = this
-    var prom = getWalletAndEmailAddressPromise(_this)
+    var prom = getWalletAndEmailAddressPromise(_this,signInObject)
     return(prom)
   }
-
 
   sendPurchaseForTransaction(purchaseForObject) {
     var _this = this
@@ -155,9 +154,13 @@ export class NiftyGatewayJS {
   }
 
   getWalletAddressFromStorage() {
-    var _this = this
-    var prom = getWalletAndEmailAddressPromise(_this)
-    return(prom)
+    var walletAddress = getCookie('walletAddress');
+    return walletAddress;
+  }
+
+  clearWalletAddressFromStorage() {
+    var walletAddress = setCookie('walletAddress',"",365);
+    return null;
   }
 
 

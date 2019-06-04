@@ -12,7 +12,16 @@ import {niftyGatewayOrigin, niftyGatewayRinkebyOrigin,niftyGatewayRinkebyOriginN
 
 const abiCoder = new AbiCoder();
 
-export function getWalletAndEmailAddressPromise(_this) {
+
+function setCookie(cname, cvalue, exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+  var expires = "expires="+d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+
+export function getWalletAndEmailAddressPromise(_this,signInObject) {
     // url to open
     var url = niftyGatewayOrigin + '/#/loginwithniftygateway/'
 
@@ -29,7 +38,9 @@ export function getWalletAndEmailAddressPromise(_this) {
     var number_of_times = 30
     var authInfo = {
       network: _this.network,
-      authKey: _this.auth_key
+      authKey: _this.auth_key,
+      signingMessage: signInObject.signingMessage,
+      isRinkeby: signInObject.isRinkeby,
     }
     window.messageConfirmed = false
     //messaging is recursive
@@ -48,9 +59,11 @@ export function getWalletAndEmailAddressPromise(_this) {
           var wallet_info = {
             didSucceed: event.data.didSucceed,
             emailAddress: event.data.emailAddress,
-            walletAddress: event.data.walletAddress}
+            walletAddress: event.data.walletAddress,
+            signedMessage: event.data.signedMessage,}
           }
-          document.cookie = "username=John Doe; expires=Thu, 18 Dec 2013 12:00:00 UTC";
+
+          setCookie('walletAddress',event.data.walletAddress,365);
           resolve(wallet_info);
       }, false);
     });
