@@ -134,7 +134,7 @@ function createOpenSeaPromise(openSeaObject, _this) {
 
     var url = _config.niftyGatewayOrigin + '/#/purchase';
 
-    var url = 'http://localhost:3001/#/purchase'; //delete this
+
 
     if (_this.network == 'rinkeby') {
       url = 'https://rinkeby.niftygateway.com/#/purchase';
