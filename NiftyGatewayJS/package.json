@@ -42,9 +42,9 @@
   "author": "Nifty Gateway Developers",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nifty-gateway/niftygatewayjs/issues"
+    "url": "https://github.com/nifty-gateway/niftygateway/issues"
   },
-  "homepage": "https://github.com/nifty-gateway/niftygatewayjs#readme",
+  "homepage": "https://github.com/nifty-gateway/niftygateway#readme",
   "devDependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.4",

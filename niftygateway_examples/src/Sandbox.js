@@ -200,8 +200,8 @@ class DemoPage extends Component {
                                         <div style={{display:"flex",flexDirection:'column',alignItems:'flex-start',justifyContent:'flex-start',marginBottom:'30px'}}>
                                             <text className="BodyNormal" style={{fontSize:'25px',color:"#333",alignSelf:'flex-start',marginBottom:'7.5px'}}>Getting a User’s Info:</text>
 
-                                            <text className="BodyNormal" style={{fontSize:'16px',color:'#999',marginBottom:'15px'}}>These are the functions that prompt a user to sign in with Nifty Gateway, giving your project access to their wallet
-address and email - whatever you request. After they’ve signed in, we’ll store their wallet address for you and you can retrieve it.</text>
+                                            <text className="BodyNormal" style={{fontSize:'16px',color:'#666',marginBottom:'15px'}}>These are the functions that prompt a user to sign in with Nifty Gateway, giving your project access to their wallet
+address and email. After they’ve signed in, we’ll store their wallet address for you and you can retrieve it.</text>
 
                                             <div style={{marginBottom:'15px',display:'flex',flexDirection:'row',alignItems:'flex-start',justifyContent:'flex-start',}}>
                                                 <Button variant="contained" color="primary" style={{marginRight:'30px'}}>
@@ -221,9 +221,9 @@ address and email - whatever you request. After they’ve signed in, we’ll sto
                                         </div>
 
                                         <div style={{display:"flex",flexDirection:'column',alignItems:'flex-start',justifyContent:'flex-start',marginBottom:'30px'}}>
-                                        <text className="BodyNormal" style={{fontSize:'25px',color:"#333",alignSelf:'flex-start',marginBottom:'7.5px'}}>Purchasing Functions:</text>
+                                        <text className="BodyNormal" style={{fontSize:'25px',color:"#333",alignSelf:'flex-start',marginBottom:'7.5px'}}>Purchasing Functions - Have your users purchase NFTs with Nifty Gateway, letting them pay with just a credit card</text>
 
-                                        <text className="BodyNormal" style={{fontSize:'16px',color:'#999',marginBottom:'15px'}}>These are functions that let people purchase your NFTs using a credit card through Nifty Gateway. This comes from a worker wallet, and can include a value transfer of ETH.</text>
+                                        <text className="BodyNormal" style={{fontSize:'16px',color:'#666',marginBottom:'15px'}}>These are functions that let people purchase your NFTs using a credit card through Nifty Gateway. This comes from a worker wallet, and can include a value transfer of ETH.</text>
 
                                         <div style={{marginBottom:'15px',display:'flex',flexDirection:'row',alignItems:'flex-start',justifyContent:'flex-start',}}>
                                             <Button variant="contained" color="primary" style={{marginRight:'30px'}}>
@@ -238,9 +238,9 @@ address and email - whatever you request. After they’ve signed in, we’ll sto
                                         </div>
 
                                         <div style={{display:"flex",flexDirection:'column',alignItems:'flex-start',justifyContent:'flex-start',marginBottom:'30px'}}>
-                                            <text className="BodyNormal" style={{fontSize:'25px',color:"#333",alignSelf:'flex-start',marginBottom:'7.5px'}}>Regular Transaction Functions</text>
+                                            <text className="BodyNormal" style={{fontSize:'25px',color:"#333",alignSelf:'flex-start',marginBottom:'7.5px'}}>Regular Transaction Functions - Send any blockchain transaction with Nifty Gateway, we cover gas fees</text>
 
-                                            <text className="BodyNormal" style={{fontSize:'16px',color:'#999',marginBottom:'15px'}}>These are the functions that let you have a user call any transaction with their Nifty Wallet. All transaction fees
+                                            <text className="BodyNormal" style={{fontSize:'16px',color:'#666',marginBottom:'15px'}}>These are the functions that let you have a user call any transaction with their Nifty Wallet. All transaction fees
 are funded by Nifty Gateway, so your user will not have to pay them. Comes from the User’s Nifty Wallet. Unlike a Purchasing Function, these cannot involve a value transfer of Ethereum. However, you can still call any regular transaction from the Nifty Wallet. This transaction will come from a user's Nifty wallet, whereas a purchasing function will come from a Nifty Gateway worker wallet.</text>
 
                                             <div style={{marginBottom:'15px',display:'flex',flexDirection:'row',alignItems:'flex-start',justifyContent:'flex-start',}}>

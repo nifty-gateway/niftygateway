@@ -121,6 +121,7 @@ export function createOpenSeaPromise(openSeaObject, _this) {
     // url to open
     var timestampOriginal = new Date();
     var timestampInUnixTime = timestampOriginal.getTime();
+
     if(openSeaObject.openInSameWindow===true){
         //isURLData=true&isOpenSea=true&contractAddress=xxx&tokenID=xxx&network=rinkeby&
         var url = niftyGatewayOrigin + '/#/purchase/isURLData=true&isOpenSea=true&contractAddress='+openSeaObject.contractAddress+'&tokenID='+openSeaObject.tokenID+'&';
@@ -135,29 +136,33 @@ export function createOpenSeaPromise(openSeaObject, _this) {
       }
       var popup = window.open(url,timestampInUnixTime,'width=400,height=800');
     }
+
     // message Nifty Gateway so it can store this window location
     var counter = 0
     var seconds_interval = 1500
     var number_of_times = 10
+
     if(openSeaObject.openInSameWindow!==true){
-    window.messageConfirmedPurchaseObj = false
-    //messaging is recursive
-    window.messagePopUpWindowWithPurchaseForObject(popup, counter, number_of_times, seconds_interval, openSeaObject);
-    //once contact has been made, wait for wallet info to be returned
-    window.addEventListener("message", function(event) {
-        if (checkEventOrigin(event.origin) == false) {
-          return;
-        }
-        if (event.data.msg_id == 'purchase_res') {
-          var info = event.data.response
-          var info_res = {
-            didSucceed: event.data.didSucceed,
-            transactionURL: event.data.transactionURL
+
+      window.messageConfirmedPurchaseObj = false
+      //messaging is recursive
+      window.messagePopUpWindowWithPurchaseForObject(popup, counter, number_of_times, seconds_interval, openSeaObject);
+      //once contact has been made, wait for wallet info to be returned
+      window.addEventListener("message", function(event) {
+          if (checkEventOrigin(event.origin) == false) {
+            return;
           }
-          resolve(info_res);
-        }
-      });
-  });
+          if (event.data.msg_id == 'purchase_res') {
+            var info = event.data.response
+            var info_res = {
+              didSucceed: event.data.didSucceed,
+              transactionURL: event.data.transactionURL
+            }
+            resolve(info_res);
+          }
+        });
+
+  };
 }
 
 export function createPurchaseForPromise(purchaseForObject, _this) {

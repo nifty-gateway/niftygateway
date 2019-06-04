@@ -28,6 +28,9 @@ function getWalletAndEmailAddressPromise(_this,signInObject) {
   // url to open
   var url = _config.niftyGatewayOrigin + '/#/loginwithniftygateway/';
 
+
+
+
   if (_this.network == 'rinkeby') {
     var url = _config.niftyGatewayRinkebyOrigin + '/#/loginwithniftygateway/';
   }
@@ -119,53 +122,66 @@ function createRegularTransactionPromise(regularTransactionObject, _this) {
 }
 
 function createOpenSeaPromise(openSeaObject, _this) {
-  return new Promise(function (resolve, reject) {
-    openSeaObject.network = _this.network;
-    openSeaObject.authKey = _this.auth_key;
-    openSeaObject.isOpenSea = true; //test and clean
 
-    var ret = (0, _validationFunctions.testAndCleanOpenSeaObject)(openSeaObject);
+      return new Promise(function(resolve, reject) {
+        openSeaObject.network = _this.network
+        openSeaObject.authKey = _this.auth_key
+        openSeaObject.isOpenSea = true
 
-    if (ret.isValid == false) {
-      reject(ret.errorsList);
-      return;
-    } // url to open
+        //test and clean
+        var ret = (0, _validationFunctions.testAndCleanOpenSeaObject)(openSeaObject);
 
+        if (ret.isValid == false) {
+          reject(ret.errorsList);
+          return;
+        }
+        // url to open
+        var timestampOriginal = new Date();
+        var timestampInUnixTime = timestampOriginal.getTime();
 
-    var url = _config.niftyGatewayOrigin + '/#/purchase';
+        if(openSeaObject.openInSameWindow===true){
+            //isURLData=true&isOpenSea=true&contractAddress=xxx&tokenID=xxx&network=rinkeby&
+            var url = _config.niftyGatewayOrigin + '/#/purchase/isURLData=true&isOpenSea=true&contractAddress='+openSeaObject.contractAddress+'&tokenID='+openSeaObject.tokenID+'&';
+            if (_this.network == 'rinkeby') {
+              url = 'https://rinkeby.niftygateway.com/#/purchase/isURLData=true&isOpenSea=true&contractAddress='+openSeaObject.contractAddress+'&tokenID='+openSeaObject.tokenID+'&';
+            }
+            window.location.replace(url);
+        } else {
+          var url = _config.niftyGatewayOrigin + '/#/purchase';
+          if (_this.network == 'rinkeby') {
+            url = 'https://rinkeby.niftygateway.com/#/purchase';
+          }
+          var popup = window.open(url,timestampInUnixTime,'width=400,height=800');
+        }
 
+        // message Nifty Gateway so it can store this window location
+        var counter = 0
+        var seconds_interval = 1500
+        var number_of_times = 10
 
+        if(openSeaObject.openInSameWindow!==true){
 
-    if (_this.network == 'rinkeby') {
-      url = 'https://rinkeby.niftygateway.com/#/purchase';
-    }
+          window.messageConfirmedPurchaseObj = false
+          //messaging is recursive
+          window.messagePopUpWindowWithPurchaseForObject(popup, counter, number_of_times, seconds_interval, openSeaObject);
+          //once contact has been made, wait for wallet info to be returned
+          window.addEventListener("message", function(event) {
+              if (checkEventOrigin(event.origin) == false) {
+                return;
+              }
+              if (event.data.msg_id == 'purchase_res') {
+                var info = event.data.response
+                var info_res = {
+                  didSucceed: event.data.didSucceed,
+                  transactionURL: event.data.transactionURL
+                }
+                resolve(info_res);
+              }
+            });
 
-    var timestampOriginal = new Date();
-    var timestampInUnixTime = timestampOriginal.getTime();
-    var popup = window.open(url, timestampInUnixTime, 'width=400,height=800'); // message Nifty Gateway so it can store this window location
+      };
 
-    var counter = 0;
-    var seconds_interval = 1500;
-    var number_of_times = 10;
-    window.messageConfirmedPurchaseObj = false; //messaging is recursive
-
-    window.messagePopUpWindowWithPurchaseForObject(popup, counter, number_of_times, seconds_interval, openSeaObject); //once contact has been made, wait for wallet info to be returned
-
-    window.addEventListener("message", function (event) {
-      if (checkEventOrigin(event.origin) == false) {
-        return;
-      }
-
-      if (event.data.msg_id == 'purchase_res') {
-        var info = event.data.response;
-        var info_res = {
-          didSucceed: event.data.didSucceed,
-          transactionURL: event.data.transactionURL
-        };
-        resolve(info_res);
-      }
     });
-  });
 }
 
 function createPurchaseForPromise(purchaseForObject, _this) {
