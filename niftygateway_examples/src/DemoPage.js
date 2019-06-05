@@ -54,9 +54,11 @@ class DemoPage extends Component {
 
       var openSeaObject = {
         contractAddress: '0x06012c8cf97bead5deae237070f9587f8e7a266d',
-        tokenID: 1254769,
+        tokenID: 1577740,
         createNiftyWallet: false,
-        openInSameWindow:true,
+        useWeb3WalletIfAvailable: true,
+
+
       }
       //call function to retrieve user info
       nftg.purchaseFromOpenSea(openSeaObject).then(res => {

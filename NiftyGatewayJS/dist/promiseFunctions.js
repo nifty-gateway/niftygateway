@@ -28,9 +28,6 @@ function getWalletAndEmailAddressPromise(_this,signInObject) {
   // url to open
   var url = _config.niftyGatewayOrigin + '/#/loginwithniftygateway/';
 
-
-
-
   if (_this.network == 'rinkeby') {
     var url = _config.niftyGatewayRinkebyOrigin + '/#/loginwithniftygateway/';
   }
@@ -141,13 +138,16 @@ function createOpenSeaPromise(openSeaObject, _this) {
 
         if(openSeaObject.openInSameWindow===true){
             //isURLData=true&isOpenSea=true&contractAddress=xxx&tokenID=xxx&network=rinkeby&
-            var url = _config.niftyGatewayOrigin + '/#/purchase/isURLData=true&isOpenSea=true&contractAddress='+openSeaObject.contractAddress+'&tokenID='+openSeaObject.tokenID+'&';
+            var url = _config.niftyGatewayOrigin + '/#/purchase/isURLData=true&isOpenSea=true&contractAddress='+openSeaObject.contractAddress+'&tokenID='+openSeaObject.tokenID+'&useweb3walletifavailable='+openSeaObject.useWeb3WalletIfAvailable+'&createNiftyWallet='+openSeaObject.createNiftyWallet+'&';
             if (_this.network == 'rinkeby') {
               url = 'https://rinkeby.niftygateway.com/#/purchase/isURLData=true&isOpenSea=true&contractAddress='+openSeaObject.contractAddress+'&tokenID='+openSeaObject.tokenID+'&';
             }
             window.location.replace(url);
         } else {
           var url = _config.niftyGatewayOrigin + '/#/purchase';
+
+
+
           if (_this.network == 'rinkeby') {
             url = 'https://rinkeby.niftygateway.com/#/purchase';
           }
