@@ -9,7 +9,7 @@ Get started with:
 ```
 npm install niftygateway
 ```
-Then, initialize a Nifty Gateway object with a dev key you get from our Dev portal: https://niftygateway.com/#/getapikey)
+Then, initialize a Nifty Gateway object with a dev key you get from our Dev portal: https://niftygateway.com/#/getapikey
 
 You must also specify the network, rinkeby or main:
 
