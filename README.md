@@ -23,7 +23,7 @@ From there, you can use the Nifty Gateway object to call functions, such as getU
 nftg.getWalletAndEmailAddress().then(res => {
     //this function returns a promise which will resolve to a data object
     if (res.didSucceed == true) {
-        console.log(res); //now a you can access the wallet of a user
+        console.log(res); //now you can access the wallet of a user
      }
  });
  ```
