@@ -2,7 +2,7 @@
 
 NiftyGatewayJS is our Javascript package that allows you to integrate the Nifty Gateway wallet into your NFT project or game. 
 
-Check out our [documentation](https://docs.niftygateway.com) for a full guide on how to use NiftyGatewayJS.
+Check out our [documentation](https://docs.niftygateway.com for a full guide on how to use NiftyGatewayJS.
 
 Get started with:
 
