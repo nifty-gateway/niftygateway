@@ -126,7 +126,7 @@ class DemoPage extends Component {
 
                                         <div style={{flex:.5,borderStyle:'solid',borderWidth:'0px',borderColor:'#333',display:'flex',flexDirection:'column',alignItems:"flex-start",justifyContent:'flex-start',alignSelf:'flex-start'}} >
 
-                                            <text className="BodyNormal" style={{marginLeft:'20px',width:"425px",fontSize:"15px",color:'#CCCCCC',marginBottom:'30px',marginTop:"35px"}}>Function: <text className="HoverButton" onClick={()=>{scroll.scrollToBottom()}} style={{color:'#2196F3',marginLeft:'5px'}}>See all functions <FaChevronDown style={{fontSize:"12px",marginBottom:'-2px'}}/></text> </text>
+                                            <text className="BodyNormal" style={{marginLeft:'20px',width:"425px",fontSize:"15px",color:'#CCCCCC',marginBottom:'30px',marginTop:"35px"}}>Function: <text className="HoverButton" onClick={()=>{scroll.scrollToBottom()}} style={{color:'#2196F3',marginLeft:'5px',textDecoration:'underline'}}>See all functions <FaChevronDown style={{fontSize:"12px",marginBottom:'-2px'}}/></text> </text>
 
                                             <text className="BodyNormal" style={{marginLeft:'20px',width:"425px",fontSize:"25px",color:'#333333',marginBottom:'7.5px'}}>Purchase Function:</text>
 
@@ -196,7 +196,6 @@ class DemoPage extends Component {
 
                                         <text className="BodyNormal" style={{fontSize:'20px',color:"#CCCCCC",alignSelf:'flex-start',marginBottom:'35px'}}>Pick a function to preview code and demo functionality:</text>
 
-
                                         <div style={{display:"flex",flexDirection:'column',alignItems:'flex-start',justifyContent:'flex-start',marginBottom:'30px'}}>
                                             <text className="BodyNormal" style={{fontSize:'25px',color:"#333",alignSelf:'flex-start',marginBottom:'7.5px'}}>Getting a User’s Info:</text>
 
@@ -237,7 +236,7 @@ address and email. After they’ve signed in, we’ll store their wallet address
                                         </div>
                                         </div>
 
-                                        <div style={{display:"flex",flexDirection:'column',alignItems:'flex-start',justifyContent:'flex-start',marginBottom:'30px'}}>
+                                        <div style={{display:"flex",flexDirection:'column',alignItems:'flex-start',justifyContent:'flex-start',marginBottom:'0px'}}>
                                             <text className="BodyNormal" style={{fontSize:'25px',color:"#333",alignSelf:'flex-start',marginBottom:'7.5px'}}>Regular Transaction Functions - Send any blockchain transaction with Nifty Gateway, we cover gas fees</text>
 
                                             <text className="BodyNormal" style={{fontSize:'16px',color:'#666',marginBottom:'15px'}}>These are the functions that let you have a user call any transaction with their Nifty Wallet. All transaction fees
@@ -253,8 +252,6 @@ are funded by Nifty Gateway, so your user will not have to pay them. Comes from 
 
                                         </div>
 
-
-
                                     </div>
 
                                   </div>
@@ -262,7 +259,6 @@ are funded by Nifty Gateway, so your user will not have to pay them. Comes from 
                           </div>
 
                   </div>
-
 
             </div>
         )

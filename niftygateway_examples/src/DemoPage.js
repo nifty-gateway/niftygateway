@@ -8,6 +8,7 @@ import NiftyGatewayJS from '../../NiftyGatewayJS';
 
 var testText = "Testing Route";
 var testText2 = "Paragraph functionality"
+var RinkebyLegendsContractAddress = '0x37C89ba5EA1Ba5887D711FF041C9910FED56DffA'
 
 function displayUserWalletAddress(){
   //create Nifty Gateway Object
@@ -23,9 +24,8 @@ function clearUserWalletAddress(){
   nftg.clearWalletAddressFromStorage();
 }
 
-
-
 class DemoPage extends Component {
+
     constructor(){
       super();
         this.state={
@@ -54,10 +54,9 @@ class DemoPage extends Component {
 
       var openSeaObject = {
         contractAddress: '0x06012c8cf97bead5deae237070f9587f8e7a266d',
-        tokenID: 1577740,
+        tokenID: 1392934,
         createNiftyWallet: true,
         useWeb3WalletIfAvailable: true,
-
 
       }
       //call function to retrieve user info
@@ -70,6 +69,34 @@ class DemoPage extends Component {
 
     displayUserWalletAddress(){
       //create Nifty Gateway object
+
+    }
+
+    handleSubmitRinkebyLegendsBuy(){
+
+
+        console.log('sendPurchaseForTransaction',RinkebyLegendsContractAddress,'RinkebyLegendsContractAddress')
+        var nftg = new NiftyGatewayJS('rinkeby','WfxvRnV9tn4QYaUJBaf5QVj9SDyxDp');
+        var tokenAddress = RinkebyLegendsContractAddress
+        var fun_sig = ('purchaseFor(address)')
+        var ex_address = ('0x9c05aC66e0F709BfCa556cbcc57CE189C00CdCcd')
+        var user_add = ('0x73E3D5240ea617057c056DfDD6bD000a1949ba')
+        var args = ['userAddress']
+        var purchaseForObject = {
+          value: '0',
+          contractAddress: tokenAddress,
+          purchaseForFunction: fun_sig,
+          argsList: args,
+          displayTitle: 'Rinkeby Legends Pack',
+          displayImageURL:'https://s3.amazonaws.com/matterhornphotostorage/JCR.png',
+          useWeb3WalletIfAvailable: true,
+        }
+
+      nftg.sendPurchaseForTransaction(purchaseForObject).then(res => {
+        console.log('promise resolved')
+        console.log(res);
+      })
+
 
     }
 
@@ -96,13 +123,20 @@ class DemoPage extends Component {
 
             <div className="HoverButton" onClick={()=>{this.submitBuyFromOpenSea()}} style={{marginTop:'20px',width:'274px',height:'56px',backgroundColor:'white',borderStyle:'solid',borderWidth:'1px',borderColor:'#C7C7C7',borderRadius:'10px',display:"flex",flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
 
-                <text className="BodyMedium" style={{fontSize:'15px',color:'#333'}}>Buy Something With Nifty Gateway</text>
+                <text className="BodyMedium" style={{fontSize:'15px',color:'#333'}}>Buy from Open Sea</text>
+
+            </div>
+
+            <div className="HoverButton" onClick={()=>{this.handleSubmitRinkebyLegendsBuy()}} style={{marginTop:'20px',width:'274px',height:'56px',backgroundColor:'white',borderStyle:'solid',borderWidth:'1px',borderColor:'#C7C7C7',borderRadius:'10px',display:"flex",flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
+
+                <text className="BodyMedium" style={{fontSize:'15px',color:'#333'}}>Purhcase For Buy</text>
 
             </div>
 
             </div>
         )
       }
+
     }
 
 export default DemoPage;

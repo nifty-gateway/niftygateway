@@ -146,8 +146,6 @@ function createOpenSeaPromise(openSeaObject, _this) {
         } else {
           var url = _config.niftyGatewayOrigin + '/#/purchase';
 
-        
-
           if (_this.network == 'rinkeby') {
             url = 'https://rinkeby.niftygateway.com/#/purchase';
           }
