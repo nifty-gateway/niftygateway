@@ -171,7 +171,8 @@ function createOpenSeaPromise(openSeaObject, _this) {
                 var info = event.data.response
                 var info_res = {
                   didSucceed: event.data.didSucceed,
-                  transactionURL: event.data.transactionURL
+                  transactionURL: event.data.transactionURL,
+                  message: event.data.message,
                 }
                 resolve(info_res);
               }
@@ -220,9 +221,10 @@ function createPurchaseForPromise(purchaseForObject, _this) {
       if (event.data.msg_id == 'purchase_res') {
         var info = event.data.response;
         var info_res = {
-          didSucceed: event.data.didSucceed,
-          transactionURL: event.data.transactionURL
-        };
+            didSucceed: event.data.didSucceed,
+            transactionURL: event.data.transactionURL,
+            message: event.data.message,
+          };
         resolve(info_res);
       }
     });
