@@ -17,9 +17,11 @@ function App() {
   return (
     <HashRouter>
     <div>
+    
       <Route exact path='/' component={DemoPage} />
       <Route path="/Demo" component={DemoPage} />
       <Route path="/Sandbox" component={Sandbox} />
+
     </div>
     </HashRouter>
 

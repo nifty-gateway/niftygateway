@@ -164,6 +164,9 @@ export function createOpenSeaPromise(openSeaObject, _this) {
 
   };
 }
+)}
+
+
 
 export function createPurchaseForPromise(purchaseForObject, _this) {
  return new Promise(function(resolve, reject) {

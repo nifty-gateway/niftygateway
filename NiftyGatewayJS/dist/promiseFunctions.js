@@ -24,7 +24,14 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 var abiCoder = new _web3EthAbi.AbiCoder();
 
-function getWalletAndEmailAddressPromise(_this,signInObject) {
+function setCookie(cname, cvalue, exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+  var expires = "expires=" + d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getWalletAndEmailAddressPromise(_this, signInObject) {
   // url to open
   var url = _config.niftyGatewayOrigin + '/#/loginwithniftygateway/';
 
@@ -39,14 +46,11 @@ function getWalletAndEmailAddressPromise(_this,signInObject) {
   var counter = 0;
   var seconds_interval = 1500;
   var number_of_times = 30;
-  var signingMessage = signInObject!==undefined?signInObject.signingMessage:null;
-  var isRinkeby = signInObject!==undefined?signInObject.isRinkeby:null;
-
   var authInfo = {
     network: _this.network,
     authKey: _this.auth_key,
-    signingMessage: signingMessage,
-    isRinkeby: isRinkeby,
+    signingMessage: signInObject.signingMessage,
+    isRinkeby: signInObject.isRinkeby
   };
   window.messageConfirmed = false; //messaging is recursive
 
@@ -66,11 +70,11 @@ function getWalletAndEmailAddressPromise(_this,signInObject) {
           didSucceed: event.data.didSucceed,
           emailAddress: event.data.emailAddress,
           walletAddress: event.data.walletAddress,
-          signedMessage: event.data.signedMessage,
+          signedMessage: event.data.signedMessage
         };
-        setCookie("walletAddress", event.data.walletAddress, 365)
       }
 
+      setCookie('walletAddress', event.data.walletAddress, 365);
       resolve(wallet_info);
     }, false);
   });
@@ -119,68 +123,69 @@ function createRegularTransactionPromise(regularTransactionObject, _this) {
 }
 
 function createOpenSeaPromise(openSeaObject, _this) {
+  return new Promise(function (resolve, reject) {
+    openSeaObject.network = _this.network;
+    openSeaObject.authKey = _this.auth_key;
+    openSeaObject.isOpenSea = true; //test and clean
 
-      return new Promise(function(resolve, reject) {
-        openSeaObject.network = _this.network
-        openSeaObject.authKey = _this.auth_key
-        openSeaObject.isOpenSea = true
+    var ret = (0, _validationFunctions.testAndCleanOpenSeaObject)(openSeaObject);
 
-        //test and clean
-        var ret = (0, _validationFunctions.testAndCleanOpenSeaObject)(openSeaObject);
+    if (ret.isValid == false) {
+      reject(ret.errorsList);
+      return;
+    } // url to open
 
-        if (ret.isValid == false) {
-          reject(ret.errorsList);
+
+    var timestampOriginal = new Date();
+    var timestampInUnixTime = timestampOriginal.getTime();
+
+    if (openSeaObject.openInSameWindow === true) {
+      //isURLData=true&isOpenSea=true&contractAddress=xxx&tokenID=xxx&network=rinkeby&
+      var url = _config.niftyGatewayOrigin + '/#/purchase/isURLData=true&isOpenSea=true&contractAddress=' + openSeaObject.contractAddress + '&tokenID=' + openSeaObject.tokenID + '&';
+
+      if (_this.network == 'rinkeby') {
+        url = 'https://rinkeby.niftygateway.com/#/purchase/isURLData=true&isOpenSea=true&contractAddress=' + openSeaObject.contractAddress + '&tokenID=' + openSeaObject.tokenID + '&';
+      }
+
+      window.location.replace(url);
+    } else {
+      var url = _config.niftyGatewayOrigin + '/#/purchase';
+
+      if (_this.network == 'rinkeby') {
+        url = 'https://rinkeby.niftygateway.com/#/purchase';
+      }
+
+      var popup = window.open(url, timestampInUnixTime, 'width=400,height=800');
+    } // message Nifty Gateway so it can store this window location
+
+
+    var counter = 0;
+    var seconds_interval = 1500;
+    var number_of_times = 10;
+
+    if (openSeaObject.openInSameWindow !== true) {
+      window.messageConfirmedPurchaseObj = false; //messaging is recursive
+
+      window.messagePopUpWindowWithPurchaseForObject(popup, counter, number_of_times, seconds_interval, openSeaObject); //once contact has been made, wait for wallet info to be returned
+
+      window.addEventListener("message", function (event) {
+        if (checkEventOrigin(event.origin) == false) {
           return;
         }
-        // url to open
-        var timestampOriginal = new Date();
-        var timestampInUnixTime = timestampOriginal.getTime();
 
-        if(openSeaObject.openInSameWindow===true){
-
-            var url = _config.niftyGatewayOrigin + '/#/purchase/isURLData=true&isOpenSea=true&contractAddress='+openSeaObject.contractAddress+'&tokenID='+openSeaObject.tokenID+'&useweb3walletifavailable='+openSeaObject.useWeb3WalletIfAvailable+'&createNiftyWallet='+openSeaObject.createNiftyWallet+'&';
-            if (_this.network == 'rinkeby') {
-              url = 'https://rinkeby.niftygateway.com/#/purchase/isURLData=true&isOpenSea=true&contractAddress='+openSeaObject.contractAddress+'&tokenID='+openSeaObject.tokenID+'&';
-            }
-            window.location.replace(url);
-        } else {
-          var url = _config.niftyGatewayOrigin + '/#/purchase';
-
-          if (_this.network == 'rinkeby') {
-            url = 'https://rinkeby.niftygateway.com/#/purchase';
-          }
-          var popup = window.open(url,timestampInUnixTime,'width=400,height=800');
+        if (event.data.msg_id == 'purchase_res') {
+          var info = event.data.response;
+          var info_res = {
+            didSucceed: event.data.didSucceed,
+            transactionURL: event.data.transactionURL
+          };
+          resolve(info_res);
         }
+      });
+    }
 
-        // message Nifty Gateway so it can store this window location
-        var counter = 0
-        var seconds_interval = 1500
-        var number_of_times = 10
-
-        if(openSeaObject.openInSameWindow!==true){
-
-          window.messageConfirmedPurchaseObj = false
-          //messaging is recursive
-          window.messagePopUpWindowWithPurchaseForObject(popup, counter, number_of_times, seconds_interval, openSeaObject);
-          //once contact has been made, wait for wallet info to be returned
-          window.addEventListener("message", function(event) {
-              if (checkEventOrigin(event.origin) == false) {
-                return;
-              }
-              if (event.data.msg_id == 'purchase_res') {
-                var info = event.data.response
-                var info_res = {
-                  didSucceed: event.data.didSucceed,
-                  transactionURL: event.data.transactionURL,
-                  message: event.data.message,
-                }
-                resolve(info_res);
-              }
-            });
-
-      };
-
-    });
+    ;
+  });
 }
 
 function createPurchaseForPromise(purchaseForObject, _this) {
@@ -221,10 +226,9 @@ function createPurchaseForPromise(purchaseForObject, _this) {
       if (event.data.msg_id == 'purchase_res') {
         var info = event.data.response;
         var info_res = {
-            didSucceed: event.data.didSucceed,
-            transactionURL: event.data.transactionURL,
-            message: event.data.message,
-          };
+          didSucceed: event.data.didSucceed,
+          transactionURL: event.data.transactionURL
+        };
         resolve(info_res);
       }
     });
@@ -237,11 +241,4 @@ function checkEventOrigin(origin) {
   } else {
     return false;
   }
-}
-
-function setCookie(cname, cvalue, exdays) {
-  var d = new Date();
-  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-  var expires = "expires="+d.toUTCString();
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
