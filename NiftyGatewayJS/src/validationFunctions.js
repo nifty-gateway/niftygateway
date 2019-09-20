@@ -318,7 +318,7 @@ function castArg(input_abi_type, arg) {
       var retDict = {}
       retDict.errorOccurred = false
       retDict.arg = arg
-      return(retDict);
+      return(arg);
   }
 }
 
